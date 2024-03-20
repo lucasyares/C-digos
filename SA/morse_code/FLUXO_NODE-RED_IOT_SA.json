@@ -1,0 +1,288 @@
+[
+    {
+        "id": "b40dca167fd2168d",
+        "type": "tab",
+        "label": "banco_de_dados_SA",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "375499450ff1ef45",
+        "type": "mysql",
+        "z": "b40dca167fd2168d",
+        "mydb": "2dbb7615410407f1",
+        "name": "banco_de_dados",
+        "x": 1210,
+        "y": 100,
+        "wires": [
+            [
+                "c93010f1d40eb6e4"
+            ]
+        ]
+    },
+    {
+        "id": "cb5b3a9bfb7b713b",
+        "type": "admin",
+        "z": "b40dca167fd2168d",
+        "name": "Whats_Admin",
+        "whatsappLink": "f797ee0856ce8398",
+        "x": 1300,
+        "y": 320,
+        "wires": [
+            []
+        ],
+        "info": "> WhatsApp de quem enviará a mensagem\r\n> recebida e enviada."
+    },
+    {
+        "id": "2d6a910ad2019351",
+        "type": "chats-out",
+        "z": "b40dca167fd2168d",
+        "name": "Envio_mensagem",
+        "whatsappLink": "f797ee0856ce8398",
+        "number": "",
+        "x": 1310,
+        "y": 280,
+        "wires": [],
+        "info": "> O arduino enviará a mensagem traduzida \r\n> para os números definidos  "
+    },
+    {
+        "id": "d4b1daddcdc43f10",
+        "type": "serial in",
+        "z": "b40dca167fd2168d",
+        "name": "serial_arduino",
+        "serial": "2e8a395d2efeec8f",
+        "x": 730,
+        "y": 60,
+        "wires": [
+            [
+                "c0985d5da3b778a7",
+                "fec9002c104bc238",
+                "f9e0a4b47f89861f",
+                "55ea54778cd15530"
+            ]
+        ]
+    },
+    {
+        "id": "fec9002c104bc238",
+        "type": "function",
+        "z": "b40dca167fd2168d",
+        "name": "function_insert",
+        "func": "msg.payload = {message_Table : msg.payload}\n// Setando valor para objeto\nmsg.topic = \"INSERT INTO arduino_table (`message_Table`,`date_time_Table`) VALUES (:message_Table , now());\"\n// Trocar o payload para topic e inserir no banco de dados\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 200,
+        "wires": [
+            [
+                "64b168116d1c15b3",
+                "375499450ff1ef45"
+            ]
+        ]
+    },
+    {
+        "id": "c0985d5da3b778a7",
+        "type": "debug",
+        "z": "b40dca167fd2168d",
+        "name": "DEBUG DA SAÍDA DO ARDUINO",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1460,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c93010f1d40eb6e4",
+        "type": "debug",
+        "z": "b40dca167fd2168d",
+        "name": "DEBUG DA SAÍDA BANCO DE DADOS",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1480,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "64b168116d1c15b3",
+        "type": "debug",
+        "z": "b40dca167fd2168d",
+        "name": "DEBUG DO FUNÇÃO INSERT",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1450,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "61c7b4a55f95dc8b",
+        "type": "inject",
+        "z": "b40dca167fd2168d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "TESTADO",
+        "payloadType": "str",
+        "x": 700,
+        "y": 280,
+        "wires": [
+            [
+                "fec9002c104bc238",
+                "55ea54778cd15530"
+            ]
+        ]
+    },
+    {
+        "id": "55ea54778cd15530",
+        "type": "function",
+        "z": "b40dca167fd2168d",
+        "name": "function_send_wpp",
+        "func": "\n\n\nmsg.toNumber = [\"+5547988071571\", \"+5547996552738\", \"+5547992852508\"]\nmsg.payload\n// enviar mensagem para esses números\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 300,
+        "wires": [
+            [
+                "83aeab76841b0169",
+                "2d6a910ad2019351"
+            ]
+        ]
+    },
+    {
+        "id": "83aeab76841b0169",
+        "type": "debug",
+        "z": "b40dca167fd2168d",
+        "name": "DEBUG DA FUNÇÃO ENVIAR MENSAGEM",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1490,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "31280eb93f9a7a3d",
+        "type": "chats-in",
+        "z": "b40dca167fd2168d",
+        "name": "Recebimento_mensagem",
+        "whatsappLink": "4b5a229bfb488b81",
+        "whatsappLiteevent": "",
+        "whatsappWebevent": "message,message_revoke_me",
+        "x": 690,
+        "y": 140,
+        "wires": [
+            [
+                "fec9002c104bc238"
+            ]
+        ],
+        "info": "> Mensagem recebida por terceiros;"
+    },
+    {
+        "id": "f9e0a4b47f89861f",
+        "type": "function",
+        "z": "b40dca167fd2168d",
+        "name": "function_select",
+        "func": "msg.topic = \"SELECT message_Table FROM arduino_table WHERE id_arduino_table = msg.payload\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 100,
+        "wires": [
+            [
+                "375499450ff1ef45"
+            ]
+        ]
+    },
+    {
+        "id": "2dbb7615410407f1",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "morse_code_db",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "f797ee0856ce8398",
+        "type": "whatsappLink",
+        "cName": "whatsapp-web",
+        "name": "Web",
+        "clientType": "waWebClient",
+        "onlineStatus": true,
+        "loopTime": "5"
+    },
+    {
+        "id": "2e8a395d2efeec8f",
+        "type": "serial-port",
+        "serialport": "COM8",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "4b5a229bfb488b81",
+        "type": "whatsappLink",
+        "cName": "whatsapp-web",
+        "name": "Web",
+        "clientType": "waWebClient",
+        "onlineStatus": true,
+        "loopTime": "5"
+    }
+]
