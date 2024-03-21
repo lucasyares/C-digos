@@ -1,0 +1,175 @@
+* {
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    justify-content: space-around;
+    border-bottom: 1px solid black;
+    padding: 9px;
+    /* Cor padrão da borda */
+    animation: alternate-border 2s infinite alternate;
+    /* Aplicando a animação */
+}
+
+@keyframes alternate-border {
+    0% {
+        border-color: black;
+        /* Cor inicial da borda */
+    }
+    50% {
+        border-color: red;
+        /* Cor alternada da borda */
+    }
+    100% {
+        border-color: black;
+        /* Cor final da borda */
+    }
+}
+
+menu li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+form {
+    text-align: center;
+    background-color: #ddd;
+    border-radius: 9px;
+    width: 90%;
+    /* Alterado para 90% da largura da tela */
+    max-width: 400px;
+    /* Limitando a largura máxima */
+    padding: 20px;
+    /* Aumentando o padding para melhorar o espaçamento nos dispositivos menores */
+}
+
+label {
+    width: 65px;
+    display: inline-block;
+    text-align: right;
+}
+
+input {
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    width: calc(80% - 20px);
+    /* Adicionando espaçamento para o input */
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    background-color: lightblue;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 7px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #66b3ff;
+    /* Altere para uma tonalidade mais escura do azul */
+}
+
+.del {
+    background-color: lightcoral;
+    border: none;
+    border-radius: 5px;
+    padding: 3px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.del:hover {
+    background-color: red;
+}
+
+.code {
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+}
+
+table {
+    border-spacing: 0px;
+    width: 100%;
+    /* Fazendo a tabela ocupar 100% da largura do contêiner */
+}
+
+tr {
+    background-color: white;
+}
+
+td,
+th {
+    padding: 2px 4px;
+}
+
+tr:first-child {
+    background-color: rgb(165, 74, 165);
+}
+
+tr:hover:not(:first-child) {
+    background-color: purple;
+    color: white;
+    cursor: pointer;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(224, 200, 224);
+}
+
+p {
+    margin: 3px;
+}
+
+
+/* Media queries para tornar o layout responsivo */
+
+@media only screen and (max-width: 768px) {
+    form {
+        width: 80%;
+        /* Reduzindo a largura do formulário para telas menores */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    form {
+        width: 90%;
+        /* Reduzindo ainda mais a largura do formulário para dispositivos pequenos */
+    }
+}
